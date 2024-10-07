@@ -1,3 +1,15 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "types": ["detox", "jest"],
+  "target": "es6",
+  "module": "commonjs",
+  "strict": true,
+  "esModuleInterop": true,
+  "skipLibCheck": true,
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    }
 }
