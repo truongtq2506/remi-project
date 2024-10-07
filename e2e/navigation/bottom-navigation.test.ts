@@ -5,7 +5,7 @@ import {
   HOME_SCREEN_ID,
   TAB_BOOKING,
   TAB_FAVOURITE,
-} from 'e2e/ids';
+} from '../ids';
 
 describe('Bottom Tab Navigation', () => {
   beforeAll(async () => {

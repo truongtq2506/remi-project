@@ -3,6 +3,7 @@ import {
   BOOK_BUTTON,
   BOOKING_DETAIL_SCREEN_ID,
   BOOKING_SCREEN_ID,
+  HOME_LIST_MOVIES,
   HOME_SCREEN_ID,
 } from '../ids';
 
@@ -16,17 +17,14 @@ describe('Booking Movie', () => {
   });
 
   it('should display the home screen', async () => {
-    // Verify home screen is displayed
     await expect(element(by.id(HOME_SCREEN_ID))).toBeVisible();
   });
 
   it('should display the list of movies', async () => {
-    // Verify list of movies is displayed
-    await expect(element(by.id('home-list-movies'))).toBeVisible();
+    await expect(element(by.id(HOME_LIST_MOVIES))).toBeVisible();
   });
 
   it('should navigate to booking detail screen when tapping "Book Ticket"', async () => {
-    // Tap the "Book Ticket" button on the first movie item
     await element(by.id(BOOK_BUTTON(HOME_SCREEN_ID)))
       .atIndex(0)
       .tap();
@@ -36,10 +34,8 @@ describe('Booking Movie', () => {
   });
 
   it('should navigate to booking screen after tapping "Book Ticket" on detail screen', async () => {
-    // Tap the "Book Ticket" button on the booking detail screen
     await element(by.id(BOOK_BUTTON(BOOKING_DETAIL_SCREEN_ID))).tap();
 
-    // Verify the booking screen is displayed
     await expect(element(by.id(BOOKING_SCREEN_ID))).toBeVisible();
   });
 });

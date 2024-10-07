@@ -1,5 +1,6 @@
 // Home screen
 export const HOME_SCREEN_ID = 'home-screen-id';
+export const HOME_LIST_MOVIES = 'home-list-movies';
 
 // Booking detail screen
 export const BOOKING_DETAIL_SCREEN_ID = 'booking-detail-screen-id';
