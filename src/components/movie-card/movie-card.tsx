@@ -18,6 +18,8 @@ const MovieCard: FC<IMovieCard> = ({
   style,
   isShowFavouriteButton,
   isShowBookButton,
+  bookTicketID,
+  favouriteID,
   onPress,
   onPressBookTicket,
   onPressFavourite,
@@ -31,6 +33,7 @@ const MovieCard: FC<IMovieCard> = ({
         <View style={styles.wrapButtonContent}>
           {isShowFavouriteButton && (
             <ButtonFavourite
+              testID={favouriteID}
               movieId={movieId}
               isFavorite={isFavorite}
               style={styles.buttonFavourite}
@@ -39,6 +42,7 @@ const MovieCard: FC<IMovieCard> = ({
           )}
           {isShowBookButton && (
             <ButtonBookTicket
+              testID={bookTicketID}
               movieId={movieId}
               isBooked={isBooked}
               onPress={onPressBookTicket}

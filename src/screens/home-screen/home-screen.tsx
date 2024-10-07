@@ -39,7 +39,9 @@ const HomeScreen = () => {
       preset="fixed"
       safeAreaEdges={['top', 'bottom']}>
       <ListMovies
+        testID="home-list-movies"
         movies={movies}
+        bookTicketID="button-book-home-screen-id"
         isShowBookButton
         isShowFavouriteButton
         onPressFavourite={onPressFavourite}

@@ -5,6 +5,7 @@ import SvgIcon from '../svg-icon';
 import { SvgHeart, SvgHeartBlank } from '@/assets/svgs';
 
 interface IButtonFavourite {
+  testID?: string;
   movieId?: string;
   isFavorite?: boolean;
   style?: ViewStyle;
@@ -12,6 +13,7 @@ interface IButtonFavourite {
 }
 
 const ButtonFavourite: FC<IButtonFavourite> = ({
+  testID,
   movieId,
   isFavorite,
   onPress,
@@ -22,7 +24,10 @@ const ButtonFavourite: FC<IButtonFavourite> = ({
   };
 
   return (
-    <Pressable style={[styles.container, style]} onPress={handlePress}>
+    <Pressable
+      testID={testID}
+      style={[styles.container, style]}
+      onPress={handlePress}>
       <View style={styles.wrapHeartContent}>
         <SvgIcon icon={isFavorite ? SvgHeart : SvgHeartBlank} />
       </View>

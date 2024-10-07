@@ -4,6 +4,7 @@ import { TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 import RnText from '../rn-text';
 
 interface IButtonBookTicket {
+  testID?: string;
   movieId?: string;
   style?: ViewStyle;
   isBooked?: boolean;
@@ -11,6 +12,7 @@ interface IButtonBookTicket {
 }
 
 const ButtonBookTicket: FC<IButtonBookTicket> = ({
+  testID,
   movieId,
   style,
   isBooked,
@@ -22,6 +24,7 @@ const ButtonBookTicket: FC<IButtonBookTicket> = ({
   };
   return (
     <TouchableOpacity
+      testID={testID}
       disabled={isBooked}
       style={[styles.container, style]}
       onPress={onPressItem}>

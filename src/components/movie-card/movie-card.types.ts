@@ -1,6 +1,8 @@
 import { ViewStyle } from 'react-native';
 
 export interface IMovieCard {
+  bookTicketID?: string;
+  favouriteID?: string;
   movieId?: string;
   thumbnailUrl?: string;
   title?: string;

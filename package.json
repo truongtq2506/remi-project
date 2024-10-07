@@ -11,7 +11,7 @@
     "build:ios-debug": "detox build --configuration ios.sim.debug",
     "build:android-debug": "detox build --configuration android.emu.debug",
     "test:ios-debug": "detox test --configuration ios.sim.debug",
-    "test:android-debug": "detox test --configuration android.emu.debug --loglevel verbose",
+    "test:android-debug": "detox test --configuration android.emu.debug",
     "podInstall:ios": "cd ios && bundle exec pod install",
     "clean:android": "cd android && ./gradlew clean && cd",
     "android:port": "adb reverse tcp:8081 tcp:8081"

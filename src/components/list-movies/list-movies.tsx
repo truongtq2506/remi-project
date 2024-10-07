@@ -9,6 +9,8 @@ import { useBottomTabBarHeightValue } from '@/hooks/app-hooks';
 import { Movie } from '@/screens/types';
 
 interface IListMovies {
+  testID?: string;
+  bookTicketID?: string;
   movies: Movie[];
   insetBottom?: number;
   isShowFavouriteButton?: boolean;
@@ -18,12 +20,14 @@ interface IListMovies {
 }
 
 const ListMovies: FC<IListMovies> = ({
+  testID,
   movies,
   insetBottom = 0,
   isShowFavouriteButton,
   isShowBookButton,
   onPressFavourite,
   onPressBookTicket,
+  bookTicketID,
 }) => {
   const insets = useSafeAreaInsets();
   const { bottomTabBarHeight } = useBottomTabBarHeightValue();
@@ -43,11 +47,13 @@ const ListMovies: FC<IListMovies> = ({
           isShowFavouriteButton={isShowFavouriteButton}
           isShowBookButton={isShowBookButton}
           onPressFavourite={onPressFavourite}
+          bookTicketID={bookTicketID}
           onPressBookTicket={onPressBookTicket}
         />
       );
     },
     [
+      bookTicketID,
       isShowBookButton,
       isShowFavouriteButton,
       onPressBookTicket,
@@ -65,7 +71,7 @@ const ListMovies: FC<IListMovies> = ({
   );
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View testID={testID} style={[styles.container, containerStyle]}>
       <FlashList
         keyExtractor={keyExtractor}
         renderItem={renderItems}

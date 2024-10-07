@@ -53,6 +53,7 @@ const BookingDetailScreen = () => {
       }
       safeAreaEdges={['top', 'bottom']}>
       <MovieCard
+        bookTicketID="button-book-booking-detail-screen-id"
         isShowBookButton
         isShowFavouriteButton
         movieId={movie?.movieId}

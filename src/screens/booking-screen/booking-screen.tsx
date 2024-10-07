@@ -16,7 +16,7 @@ const BookingScreen = () => {
     return (
       <View onLayout={onLayout}>
         <View style={styles.header}>
-          <RnText text="Booking Movie" />
+          <RnText testID="booking-header" text="Booking Movie" />
         </View>
         <Divider />
       </View>
@@ -30,7 +30,12 @@ const BookingScreen = () => {
       backgroundColor="#fff"
       renderHeader={renderHeader}
       safeAreaEdges={['top', 'bottom']}>
-      <ListMovies movies={bookingMovies} insetBottom={height} />
+      <ListMovies
+        testID="home-list-movies"
+        buttonBookTicketID={'home-button-book-ticket'}
+        movies={bookingMovies}
+        insetBottom={height}
+      />
     </BaseScreen>
   );
 };
