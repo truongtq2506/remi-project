@@ -22,13 +22,15 @@ const ButtonBookTicket: FC<IButtonBookTicket> = ({
   const onPressItem = () => {
     movieId && onPress?.(movieId);
   };
+  const textStyle = isBooked ? { fontSize: 16 } : {};
+
   return (
     <TouchableOpacity
       testID={testID}
       disabled={isBooked}
       style={[styles.container, style]}
       onPress={onPressItem}>
-      <RnText text={title} />
+      <RnText text={title} style={textStyle} />
     </TouchableOpacity>
   );
 };

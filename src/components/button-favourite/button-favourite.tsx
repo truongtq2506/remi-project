@@ -23,10 +23,11 @@ const ButtonFavourite: FC<IButtonFavourite> = ({
     movieId && onPress?.(movieId);
   };
 
+  const backgroundColor = isFavorite ? '#fff' : '#C1C9D2';
   return (
     <Pressable
       testID={testID}
-      style={[styles.container, style]}
+      style={[styles.container, { backgroundColor: backgroundColor }, style]}
       onPress={handlePress}>
       <View style={styles.wrapHeartContent}>
         <SvgIcon icon={isFavorite ? SvgHeart : SvgHeartBlank} />
