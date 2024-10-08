@@ -17,7 +17,6 @@ const ToastFavourite = (
 
   const text = isSaved ? 'Lưu film thành công' : 'Đã bỏ lưu film';
   const icon = isSaved ? SvgFavouriteSaved : SvgFavouriteUnSaved;
-  console.log('ToastFavourite', text);
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <SvgIcon icon={icon} color="#fff" />

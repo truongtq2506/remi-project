@@ -17,7 +17,6 @@ export const useSetMovies = () => {
   });
   return useCallback(
     (movies: Movie[]) => {
-      console.log('useSetMovies', movies);
       if (movies) {
         updater(movies);
       }
