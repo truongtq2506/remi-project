@@ -1,17 +1,23 @@
 import { Movie } from '@/screens/types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface MoviesState {
-  page: number;
-  loading: boolean;
+  isLoading: boolean;
   error: string | null;
   movies: Movie[];
+  isRefreshing: boolean;
+  isLoadingMore: boolean;
+  pageCurrent: number;
+  hasMore: boolean;
 }
 
 const initialState: MoviesState = {
-  page: 1,
-  loading: false,
-  error: null,
   movies: [],
+  isLoading: false,
+  isLoadingMore: false,
+  error: null,
+  isRefreshing: false,
+  pageCurrent: 0,
+  hasMore: true,
 };
 
 const moviesSlice = createSlice({
@@ -24,20 +30,49 @@ const moviesSlice = createSlice({
     getMovies: (state, _) => {
       state.movies = state.movies;
     },
-    fetchMoviesRequest: state => {
-      state.loading = true;
+
+    fetchMoviesRequest: (
+      state,
+      action: PayloadAction<{ pageCurrent: number; isRefreshing: boolean }>,
+    ) => {
+      if (action.payload.isRefreshing) {
+        state.isRefreshing = true;
+      } else if (state.pageCurrent > 0) {
+        state.isLoadingMore = true;
+      } else {
+        state.isLoading = true;
+      }
       state.error = null;
     },
-    fetchMoviesSuccess: (state, action) => {
-      state.movies = [...state.movies, ...action.payload];
-      state.loading = false;
+    fetchMoviesSuccess: (
+      state,
+      action: PayloadAction<{ movies: Movie[]; isRefreshing: boolean }>,
+    ) => {
+      const { movies, isRefreshing } = action.payload;
+      if (isRefreshing) {
+        state.movies = movies;
+        state.isRefreshing = false;
+      } else {
+        state.movies = [...state.movies, ...movies];
+        state.isLoadingMore = false;
+      }
+      state.isLoading = false;
+      state.hasMore = movies.length > 0;
     },
-    fetchMoviesFailure: (state, action) => {
-      state.loading = false;
+    fetchMoviesFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.isRefreshing = false;
+      state.isLoadingMore = false;
       state.error = action.payload;
     },
     incrementPage: state => {
-      state.page += 1;
+      state.pageCurrent += 1;
+    },
+    resetMoviesState: state => {
+      state.pageCurrent = 0;
+      state.hasMore = true;
+      state.isLoadingMore = false;
+      state.movies = [];
     },
     toggleFavorite: (state, action) => {
       const movieId = action.payload;
@@ -71,6 +106,7 @@ export const {
   fetchMoviesSuccess,
   fetchMoviesFailure,
   incrementPage,
+  resetMoviesState,
   toggleFavorite,
   bookMovie,
   setMovies,

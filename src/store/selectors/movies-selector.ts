@@ -9,6 +9,28 @@ export const selectMovies = createSelector(
   (state: MoviesState) => state.movies,
 );
 
+export const selectMoviesz = createSelector(
+  moviesSelector,
+  (state: MoviesState) => {
+    const {
+      movies,
+      isLoading,
+      isRefreshing,
+      pageCurrent,
+      hasMore,
+      isLoadingMore,
+    } = state;
+    return {
+      movies,
+      isLoading,
+      isRefreshing,
+      pageCurrent,
+      hasMore,
+      isLoadingMore,
+    };
+  },
+);
+
 export const selectMovieById = (movieId?: string) =>
   createSelector(moviesSelector, (state: MoviesState) =>
     state.movies.find(movie => movie.movieId === movieId),

@@ -1,30 +1,45 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { fetchMoviesRequest, setMovies } from '@/store/slices';
+import { fetchMoviesRequest, resetMoviesState } from '@/store/slices';
 import { useAppDispatch } from '@/store/store';
-import { selectMovies } from '@/store/selectors';
-import data from '../../assets/data/moviesData.json';
-import { generateRandomMovies } from '@/utils/common-util';
-// import { useGetMovies, useSetMovies } from '@/api';
+import { selectMoviesz } from '@/store/selectors';
 
 const useHomeScreenHooks = () => {
-  const movies = useSelector(selectMovies);
   const dispatch = useAppDispatch();
+  const {
+    movies,
+    isLoading,
+    isRefreshing,
+    pageCurrent,
+    hasMore,
+    isLoadingMore,
+  } = useSelector(selectMoviesz);
 
-  // const moviesQuery = useGetMovies();
-  // const setMoviesQuery = useSetMovies();
-  const movieList = useMemo(() => generateRandomMovies(100), []);
-  console.log({ movieList });
-
+  // Fetch movies on mount
   useEffect(() => {
-    // setMoviesQuery(data.results);
-    // dispatch(fetchMoviesRequest());
-    dispatch(setMovies(movieList));
-  }, [dispatch, movieList]);
+    dispatch(fetchMoviesRequest({ pageCurrent: 0, isRefreshing: false }));
+  }, [dispatch]);
+
+  // Handle pull to refresh
+  const refresh = useCallback(() => {
+    dispatch(resetMoviesState());
+    dispatch(fetchMoviesRequest({ pageCurrent: 0, isRefreshing: true }));
+  }, [dispatch]);
+  // Handle load more
+  const loadMore = useCallback(() => {
+    if (isLoading || !hasMore) {
+      return;
+    }
+    dispatch(fetchMoviesRequest({ pageCurrent, isRefreshing: false }));
+  }, [dispatch, hasMore, isLoading, pageCurrent]);
 
   return {
     movies,
+    isLoadingMore,
+    isRefreshing,
+    refresh,
+    loadMore,
   };
 };
 

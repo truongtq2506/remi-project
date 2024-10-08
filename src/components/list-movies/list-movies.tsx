@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, ReactNode, useCallback, useMemo } from 'react';
 import { StyleSheet, ViewStyle, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -17,6 +17,11 @@ interface IListMovies {
   horizontal?: boolean;
   pagingEnabled?: boolean;
   isShowBookButton?: boolean;
+  isRefreshing?: boolean;
+  listFooterComponent?: () => ReactNode;
+  listEmptyComponent?: () => ReactNode;
+  loadMore?: () => void;
+  onRefresh?: () => void;
   onPressFavourite?: (movieId: string) => void;
   onPressBookTicket?: (movieId: string) => void;
 }
@@ -27,9 +32,14 @@ const ListMovies: FC<IListMovies> = ({
   insetBottom = 0,
   isShowFavouriteButton,
   isShowBookButton,
+  isRefreshing,
   bookTicketID,
   pagingEnabled,
   horizontal,
+  listFooterComponent,
+  listEmptyComponent,
+  onRefresh,
+  loadMore,
   onPressFavourite,
   onPressBookTicket,
 }) => {
@@ -77,12 +87,17 @@ const ListMovies: FC<IListMovies> = ({
   return (
     <View testID={testID} style={[styles.container, containerStyle]}>
       <FlashList
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
+        onEndReached={loadMore}
         horizontal={horizontal}
         pagingEnabled={pagingEnabled}
         keyExtractor={keyExtractor}
         renderItem={renderItems}
         data={movies}
         estimatedItemSize={300}
+        ListFooterComponent={listFooterComponent}
+        ListEmptyComponent={listEmptyComponent}
       />
     </View>
   );

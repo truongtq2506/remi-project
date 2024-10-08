@@ -8,6 +8,8 @@ import useHomeScreenHooks from './home-screen.hooks';
 import ListMovies from '@/components/list-movies';
 import { toggleFavorite } from '@/store/slices';
 import { useAppDispatch } from '@/store/store';
+import LoadingFooter from '@/components/loading-footer';
+import LoadingEmpty from '@/components/loading-empty';
 
 type HomeScreenStackNavigationProps = NativeStackNavigationProp<
   RootStackParamLists,
@@ -15,10 +17,8 @@ type HomeScreenStackNavigationProps = NativeStackNavigationProp<
 >;
 
 const HomeScreen = () => {
-  const { movies } = useHomeScreenHooks();
-
-  const getThumbnails = movies.map(movie => movie.thumbnail);
-  console.log('getThumbnails', getThumbnails);
+  const { movies, isRefreshing, loadMore, refresh, isLoadingMore } =
+    useHomeScreenHooks();
 
   const { navigate } = useNavigation<HomeScreenStackNavigationProps>();
   const dispatch = useAppDispatch();
@@ -37,6 +37,16 @@ const HomeScreen = () => {
     [navigate],
   );
 
+  const listFooterComponent = useCallback(() => {
+    return isLoadingMore && <LoadingFooter />;
+  }, [isLoadingMore]);
+
+  const listEmptyComponent = useCallback(() => {
+    return (
+      <LoadingEmpty title="Movie is not exits" body="Please try again!!" />
+    );
+  }, []);
+
   return (
     <BaseScreen
       testID="home-screen-id"
@@ -47,9 +57,14 @@ const HomeScreen = () => {
         movies={movies}
         bookTicketID="button-book-home-screen-id"
         isShowBookButton
+        onRefresh={refresh}
+        loadMore={loadMore}
+        isRefreshing={isRefreshing}
         isShowFavouriteButton
         onPressFavourite={onPressFavourite}
         onPressBookTicket={onPressBookTicket}
+        listFooterComponent={listFooterComponent}
+        listEmptyComponent={listEmptyComponent}
       />
     </BaseScreen>
   );
