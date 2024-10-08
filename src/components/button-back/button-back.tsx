@@ -18,14 +18,15 @@ const BackButton: FC<IBackButton> = ({
   style,
 }) => {
   return (
-    <View testID={testID} style={[styles.container, style]}>
-      <Pressable
-        style={styles.backButton}
-        onPress={onPressIcon}
-        hitSlop={hitSlop}>
+    <Pressable
+      testID={testID}
+      style={[styles.container, style]}
+      hitSlop={hitSlop}
+      onPress={onPressIcon}>
+      <Pressable style={styles.backButton} onPress={onPressIcon}>
         <SvgIcon icon={icon} />
       </Pressable>
-    </View>
+    </Pressable>
   );
 };
 
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    zIndex: 1,
   },
   backButton: {
     width: 40,
