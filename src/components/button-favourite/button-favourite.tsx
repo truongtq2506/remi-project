@@ -9,7 +9,7 @@ interface IButtonFavourite {
   movieId?: string;
   isFavorite?: boolean;
   style?: ViewStyle;
-  onPress?: (movieId: string) => void;
+  onPress?: (movieId: string, isFavorite?: boolean) => void;
 }
 
 const ButtonFavourite: FC<IButtonFavourite> = ({
@@ -20,7 +20,7 @@ const ButtonFavourite: FC<IButtonFavourite> = ({
   style,
 }) => {
   const handlePress = () => {
-    movieId && onPress?.(movieId);
+    movieId && onPress?.(movieId, isFavorite);
   };
 
   const backgroundColor = isFavorite ? '#fff' : '#C1C9D2';

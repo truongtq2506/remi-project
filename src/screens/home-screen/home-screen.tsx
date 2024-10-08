@@ -10,6 +10,7 @@ import { toggleFavorite } from '@/store/slices';
 import { useAppDispatch } from '@/store/store';
 import LoadingFooter from '@/components/loading-footer';
 import LoadingEmpty from '@/components/loading-empty';
+import Toast from 'react-native-toast-message';
 
 type HomeScreenStackNavigationProps = NativeStackNavigationProp<
   RootStackParamLists,
@@ -24,8 +25,18 @@ const HomeScreen = () => {
   const dispatch = useAppDispatch();
 
   const onPressFavourite = useCallback(
-    (movieId: string) => {
+    (movieId: string, isFavorite?: boolean) => {
       dispatch(toggleFavorite(movieId));
+      Toast.show({
+        type: 'favouriteFilm',
+        position: 'bottom',
+        bottomOffset: 100,
+        props: {
+          isSaved: !isFavorite,
+          onPress: () => Toast.hide(),
+        },
+        visibilityTime: 3000,
+      });
     },
     [dispatch],
   );

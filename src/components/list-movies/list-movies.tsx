@@ -22,7 +22,7 @@ interface IListMovies {
   listEmptyComponent?: () => ReactNode;
   loadMore?: () => void;
   onRefresh?: () => void;
-  onPressFavourite?: (movieId: string) => void;
+  onPressFavourite?: (movieId: string, isFavorite?: boolean) => void;
   onPressBookTicket?: (movieId: string) => void;
 }
 

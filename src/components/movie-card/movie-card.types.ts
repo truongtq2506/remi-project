@@ -14,5 +14,5 @@ export interface IMovieCard {
   isShowBookButton?: boolean;
   onPress?: () => void;
   onPressBookTicket?: (movieId: string) => void;
-  onPressFavourite?: (movieId: string) => void;
+  onPressFavourite?: (movieId: string, isFavorite?: boolean) => void;
 }

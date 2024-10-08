@@ -8,10 +8,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 import RootNavigation from '@/navigation/root-navigation';
 import { store } from '@/store/store';
 import { setNetworkConfig } from '@/api';
+import { toastConfig } from '@/components/toast-message';
 
 setNetworkConfig({
   movieUrl: 'https://api.themoviedb.org/3',
@@ -25,6 +27,7 @@ function App() {
     <Provider store={store}>
       <SafeAreaProvider>
         <RootNavigation />
+        <Toast config={toastConfig} />
       </SafeAreaProvider>
     </Provider>
   );
