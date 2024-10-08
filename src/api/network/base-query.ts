@@ -1,8 +1,7 @@
-import type { BaseQueryFn } from '@reduxjs/toolkit/query';
+import type { BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { AxiosError, AxiosRequestConfig } from 'axios';
-
-import { FetcherType } from './types';
 import { getFetcher } from './fetchers';
+import type { FetcherType } from './types';
 import { getErrorMessage } from './error-message';
 
 export const createBaseQuery =
@@ -18,7 +17,7 @@ export const createBaseQuery =
     unknown,
     unknown
   > =>
-  async ({ url, method = 'GET', data, params }) => {
+  async ({ url, method, data, params }) => {
     try {
       const response = await getFetcher(type)({
         url,
@@ -28,19 +27,21 @@ export const createBaseQuery =
       });
       return { data: response.data };
     } catch (error) {
-      let errMgs = 'An error occurred';
+      let message = 'An error occurred';
       if (error instanceof AxiosError) {
         const axiosError = error as AxiosError<{
           statusCode?: string;
           message?: string;
         }>;
-        errMgs = getErrorMessage(axiosError?.response?.data?.message);
-        if (errMgs) {
-          return { error: errMgs };
+        message = getErrorMessage(axiosError.response?.data?.message);
+        if (message) {
+          return {
+            error: message,
+          };
         }
       }
       return {
-        error: error instanceof Error ? error.message : errMgs,
+        error: error instanceof Error ? error.message : message,
       };
     }
   };

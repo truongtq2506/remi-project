@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import { UNIQUE_ID, API_VERSION } from './contants';
 import { NetworkConfig } from './types';
 import { setFetchers } from './fetchers';
+import { API_VERSION, UNIQUE_ID } from '../constants';
 
 type QueueItem = {
   resolve: (value: unknown) => void;

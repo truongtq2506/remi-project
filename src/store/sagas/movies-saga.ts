@@ -1,11 +1,14 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios, { AxiosResponse } from 'axios';
-
+import dataMovie from '../../assets/data/moviesData.json';
 import {
   fetchMoviesSuccess,
   fetchMoviesFailure,
   fetchMoviesRequest,
 } from '../slices';
+import { useSetMovies } from '@/api';
+import movieApi from '@/api/movie';
+import { Movie } from '@/screens/types';
 
 const fetchMoviesApi = () => {
   const options = {
@@ -40,6 +43,19 @@ function* getMovies(_: ReturnType<typeof fetchMoviesRequest>): any {
   }
 }
 
+// function* queryMoviesSaga(_: ReturnType<typeof fetchMoviesRequest>): any {
+//   try {
+// I try to combine using RTK query vs saga it seems like not working
+// const setMovies = yield call(useSetMovies);
+// yield call(setMovies, dataMovie.results);
+// const result = yield call(movieApi.endpoints.setMovies.initiate, dataMovie);
+// console.log('result', result.data);
+//   } catch (error) {
+//     yield put({ type: fetchMoviesFailure.type, payload: error });
+//   }
+// }
+
 export default function* moviesSaga() {
   yield takeLatest(fetchMoviesRequest.type, getMovies);
+  // yield takeLatest(fetchMoviesRequest.type, queryMoviesSaga);
 }

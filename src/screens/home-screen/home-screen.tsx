@@ -16,6 +16,7 @@ type HomeScreenStackNavigationProps = NativeStackNavigationProp<
 
 const HomeScreen = () => {
   const { movies } = useHomeScreenHooks();
+
   const { navigate } = useNavigation<HomeScreenStackNavigationProps>();
   const dispatch = useAppDispatch();
 

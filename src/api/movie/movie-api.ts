@@ -22,7 +22,21 @@ const movieApi = baseMoviesApi.injectEndpoints({
         };
       },
     }),
+    setMovies: build.mutation<Movie[], Movie[]>({
+      queryFn: movies => ({
+        data: movies,
+      }),
+    }),
+    setMovies1: build.mutation<any, any>({
+      query: movies => ({
+        url: 'movies', // Set your actual API endpoint or if mock, don't worry about it
+        method: 'POST',
+        body: movies,
+      }),
+    }),
   }),
 });
+
+export const { useSetMoviesMutation } = movieApi;
 
 export default movieApi;

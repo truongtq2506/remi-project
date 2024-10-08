@@ -4,9 +4,10 @@ import { useDispatch } from 'react-redux';
 
 import rootSaga from './sagas';
 import rootReducer from './reducers';
+import { baseMoviesApi } from '@/api';
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [sagaMiddleware];
+const middleware = [sagaMiddleware, baseMoviesApi.middleware];
 
 export const store = configureStore({
   reducer: rootReducer,

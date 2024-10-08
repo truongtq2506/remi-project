@@ -1,5 +1,5 @@
 export type Movie = {
-  imageurl: string | undefined;
+  imageurl: string[] | undefined;
   movieId: string;
   title: string;
   description: string;
@@ -7,4 +7,7 @@ export type Movie = {
   isFavorite: boolean;
   isBooked: boolean;
   timestamp?: number;
+  genre?: string[];
+  imdbrating?: number;
+  released?: number;
 };
