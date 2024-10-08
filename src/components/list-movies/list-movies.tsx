@@ -14,6 +14,8 @@ interface IListMovies {
   movies: Movie[];
   insetBottom?: number;
   isShowFavouriteButton?: boolean;
+  horizontal?: boolean;
+  pagingEnabled?: boolean;
   isShowBookButton?: boolean;
   onPressFavourite?: (movieId: string) => void;
   onPressBookTicket?: (movieId: string) => void;
@@ -25,9 +27,11 @@ const ListMovies: FC<IListMovies> = ({
   insetBottom = 0,
   isShowFavouriteButton,
   isShowBookButton,
+  bookTicketID,
+  pagingEnabled,
+  horizontal,
   onPressFavourite,
   onPressBookTicket,
-  bookTicketID,
 }) => {
   const insets = useSafeAreaInsets();
   const { bottomTabBarHeight } = useBottomTabBarHeightValue();
@@ -73,6 +77,8 @@ const ListMovies: FC<IListMovies> = ({
   return (
     <View testID={testID} style={[styles.container, containerStyle]}>
       <FlashList
+        horizontal={horizontal}
+        pagingEnabled={pagingEnabled}
         keyExtractor={keyExtractor}
         renderItem={renderItems}
         data={movies}
@@ -90,6 +96,7 @@ interface Style {
 const styles = StyleSheet.create<Style>({
   container: {
     height: ScreenHeight,
+    width: ScreenWidth,
     backgroundColor: 'grey',
   },
   movieCard: {

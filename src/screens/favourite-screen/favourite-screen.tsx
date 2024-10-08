@@ -30,7 +30,12 @@ const FavouriteScreen = () => {
       preset="fixed"
       renderHeader={renderHeader}
       safeAreaEdges={['top', 'bottom']}>
-      <ListMovies movies={favouriteMovies} insetBottom={height} />
+      <ListMovies
+        movies={favouriteMovies}
+        insetBottom={height}
+        horizontal
+        pagingEnabled
+      />
     </BaseScreen>
   );
 };
